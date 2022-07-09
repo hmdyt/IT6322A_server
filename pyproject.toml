@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "IT6322A_server"
+version = "0.1.0"
+description = ""
+authors = ["Hamada Yuto <hamada@stu.kobe-u.ac.jp>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+PyVISA = "^1.12.0"
+PyVISA-py = "^0.5.3"
+pyusb = "^1.2.1"
+python-usbtmc = "^0.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
