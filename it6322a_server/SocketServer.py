@@ -46,15 +46,35 @@ class SocketServer:
             response = str(e)
         except:
             response = "unknown error"
-        return response
-    
+        return str(response)
+        
+    def _throw_write(self, write: str) -> None:
+        try:
+            response = self._instr.write(write)
+        except pyvisa.errors.VisaIOError as e:
+            print(e, file=sys.stderr)
+            response = str(e)
+        except:
+            response = "unknown error"
+        return str(response)
+
+    def _throw(self, msg):
+        # msg examples : "wINST FIR"
+        #              : "q*IDN?"
+        if msg[0] == 'w':
+            return self._throw_write(msg[1:])
+        elif msg[0] == 'q':
+            return self._throw_query(msg[1:])
+        else:
+            return "Error: query shoud be like 'q*IDN?' or 'rINST FIR'"
+
     def start(self) -> None:
         while True:
             client_socket, client_address = self._socket.accept()
             self._print_msg(f'connection from {client_address} established')
             received_query = client_socket.recv(config.buffer_size).decode(config.decoding_method)
             self._print_msg(f'query "{received_query}" received')
-            response = self._throw_query(received_query)
+            response = self._throw(received_query)
             client_socket.send(response.encode(config.encoding_method))
             self._print_msg(f'response "{response.strip()}" sent')
             client_socket.close()
