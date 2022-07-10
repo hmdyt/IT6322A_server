@@ -4,3 +4,6 @@ hardware_serial_number = '802071092767310443'
 encoding_method = 'utf-8'
 decoding_method = 'utf-8'
 buffer_size = 1024
+logger_file = '/home/msgc/server.log'
+logger_size = '1 GB'
+logger_level = 'DEBUG'
